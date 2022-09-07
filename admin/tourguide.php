@@ -1,0 +1,152 @@
+<?php 
+include('includes/header.php');
+include('code.php');
+include('includes/navbar.php');
+?>
+
+
+
+
+
+
+
+
+
+
+
+<!-- ////////////-->
+<div class="modal fade" id="adddes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Destination</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <form action="code.php" method="POST" enctype="multipart/form-data">     
+            <div class="modal-body">
+
+                <div class="from-group">
+                    <label>Name </label>
+                    <input type= "text" name="name" class="form-control" placeholder="Enter Place Name" required>
+                </div>
+
+                <div class="from-group">
+                    <label>Phone </label>
+                    <input type= "text" name="phone" class="form-control" placeholder="Enter Special attraction" required>
+                </div>
+
+                <div class="from-group">
+                    <label> Email </label>
+                    <input type= "text" name="email" class="form-control" placeholder="Enter Description" required>
+                </div>
+
+                
+
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" name="save_guide" class="btn btn-primary">Save</button>
+                </div>
+
+            </div>
+            </form>  
+        </div>
+            
+        
+  </div>
+</div>
+
+
+
+
+<div class="container-fluid">
+
+<div class="cardd shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Tour Guide
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#adddes">
+              Add  </button>
+
+        </h6>
+</div>
+
+<div class="card body">
+
+
+    <!-- <?php
+
+
+
+
+    ?> -->
+
+
+
+
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    
+                    <th width=20%>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            <?php
+
+                    $server = "localhost";
+                    $user = "root";
+                    $pass = "";
+                    $database = "travelproject";
+
+                    $conn = mysqli_connect($server, $user, $pass, $database);
+
+                    $sql = "SELECT * FROM tourguides";
+                    $result = mysqli_query($conn, $sql);
+                    if ($result->num_rows > 0) {
+                        
+                            while($row = $result->fetch_assoc()) {
+
+                                
+                            ?>
+                                <tr>
+                                    <td><?php echo $row["id"] ?></td>
+                                    <td><?php echo $row["name"] ?></td>
+                                    <td><?php echo $row["phone"] ?></td>
+                                    <td><?php echo $row["email"] ?></td>
+                                    <td class="td1">
+                                    <a href="tourguides_redirect.php?id=<?php echo $row["id"] ?>" class="btn btn-danger btn-sm">Delete</a>
+                                    </td>
+
+                                </tr>
+
+
+                                
+
+                            <?php } 
+                    } 
+
+                ?>
+
+
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</div>
+
+
+
+
+<?php 
+include('includes/scripts.php');
+include('includes/footer.php');
+?>
